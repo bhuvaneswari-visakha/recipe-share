@@ -214,8 +214,8 @@ const Posts = () => {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto mb-4"></div>
-                    <p className="text-xl text-gray-700 font-medium">Loading delicious recipes...</p>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-purple-600 mx-auto mb-4"></div>
+                    <p className="text-lg text-gray-700 font-medium">Loading recipes...</p>
                 </div>
             </div>
         );
@@ -224,7 +224,7 @@ const Posts = () => {
     if (error) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4">
-                <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4 max-w-md">
                     <p className="text-red-600 text-center">{error}</p>
                 </div>
             </div>
@@ -232,19 +232,19 @@ const Posts = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 py-6 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-8">
-                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-6 sm:mb-8">
-                        🍳 All Recipes
+                <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6">
+                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-4 sm:mb-6">
+                        All Recipes
                     </h2>
 
                     {/* Search Bar */}
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 items-stretch sm:items-center justify-center">
                         <input
                             type="text"
-                            placeholder="Search by title, description, or username"
+                            placeholder="Search recipes..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                             onKeyPress={(e) => {
@@ -252,20 +252,20 @@ const Posts = () => {
                                     handleSearch();
                                 }
                             }}
-                            className="flex-1 max-w-md px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-purple-500 focus:outline-none transition-colors text-base"
+                            className="flex-1 max-w-md px-4 py-2 rounded-lg border-2 border-gray-300 focus:border-purple-500 focus:outline-none transition-colors text-sm"
                         />
                         <button
                             onClick={handleSearch}
-                            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                            className="px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-md"
                         >
-                            🔍 Search
+                            Search
                         </button>
                         {searchTerm && (
                             <button
                                 onClick={handleClearSearch}
-                                className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                className="px-5 py-2 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors shadow-md"
                             >
-                                ✕ Clear
+                                Clear
                             </button>
                         )}
                     </div>
@@ -273,15 +273,15 @@ const Posts = () => {
 
                 {/* Posts Grid */}
                 {posts.length === 0 ? (
-                    <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
-                        <p className="text-xl text-gray-600">
+                    <div className="bg-white rounded-xl shadow-md p-6 text-center">
+                        <p className="text-lg text-gray-600">
                             {searchTerm 
-                                ? `No recipes found matching "${searchTerm}" 😔` 
-                                : "No recipes available yet. Be the first to add one! 🎉"}
+                                ? `No recipes found matching "${searchTerm}"` 
+                                : "No recipes available yet. Be the first to add one!"}
                         </p>
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-5">
                         {posts.map((post) => {
                             const hasSaved = post.savedBy && Array.isArray(post.savedBy) && post.savedBy.includes(currentUserId);
                             const hasLiked = post.likes && Array.isArray(post.likes) && post.likes.includes(currentUserId);
@@ -289,7 +289,7 @@ const Posts = () => {
                             return (
                                 <div
                                     key={post._id}
-                                    className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col transform hover:-translate-y-1"
+                                    className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
                                 >
                                     {/* Image */}
                                     {post.imageUrl && (
@@ -297,61 +297,53 @@ const Posts = () => {
                                             <img
                                                 src={`${API_URL}/uploads/${post.imageUrl}`}
                                                 alt={post.title}
-                                                className="w-full h-48 sm:h-56 object-cover hover:scale-105 transition-transform duration-300"
+                                                className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
                                             />
                                         </Link>
                                     )}
                                     
                                     {/* Content */}
-                                    <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                                    <div className="p-3 flex-1 flex flex-col">
                                         <Link to={`/posts/${post._id}`} className="group">
-                                            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
+                                            <h3 className="text-base font-bold text-gray-800 mb-1 group-hover:text-purple-600 transition-colors line-clamp-2">
                                                 {post.title}
                                             </h3>
                                         </Link>
                                         
                                         {post.user && post.user.name && (
-                                            <p className="text-sm text-gray-500 mb-3">
-                                                👨‍🍳 By: <span className="font-medium">{post.user.name}</span>
+                                            <p className="text-xs text-gray-500 mb-2">
+                                                By {post.user.name}
                                             </p>
                                         )}
                                         
-                                        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
-                                            {post.description.length > 120 ? post.description.substring(0, 120) + '...' : post.description}
+                                        <p className="text-sm text-gray-600 mb-3 line-clamp-2 flex-1">
+                                            {post.description}
                                         </p>
                                         
-                                        {post.ingredients && post.ingredients.length > 0 && (
-                                            <div className="text-sm text-gray-500 mb-4 bg-gray-50 p-3 rounded-lg">
-                                                <strong className="text-gray-700">🥘 Ingredients:</strong>
-                                                <p className="mt-1">{post.ingredients.slice(0, 3).join(', ')}{post.ingredients.length > 3 ? '...' : ''}</p>
-                                            </div>
-                                        )}
-                                        
                                         {/* Like & Save Buttons */}
-                                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200">
+                                        <div className="flex items-center gap-2 mb-3 pb-3 border-b border-gray-200">
                                             <button
                                                 onClick={() => handleLikeToggle(post._id)}
-                                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                                                className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm font-medium transition-all ${
                                                     hasLiked 
-                                                        ? 'bg-red-50 text-red-600 hover:bg-red-100' 
+                                                        ? 'bg-red-50 text-red-600' 
                                                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                                 }`}
                                             >
-                                                <span className="text-lg">{hasLiked ? '❤️' : '🤍'}</span>
+                                                <span>{hasLiked ? '♥' : '♡'}</span>
                                                 <span>{post.likes ? post.likes.length : 0}</span>
                                             </button>
 
                                             {currentUserId && (
                                                 <button
                                                     onClick={() => handleSaveToggle(post._id)}
-                                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                                                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-sm font-medium transition-all ${
                                                         hasSaved 
-                                                            ? 'bg-green-50 text-green-600 hover:bg-green-100' 
+                                                            ? 'bg-green-50 text-green-600' 
                                                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                                     }`}
                                                 >
-                                                    <span className="text-lg">{hasSaved ? '⭐' : '☆'}</span>
-                                                    <span className="hidden sm:inline">{hasSaved ? 'Saved' : 'Save'}</span>
+                                                    <span>{hasSaved ? '★' : '☆'}</span>
                                                 </button>
                                             )}
                                         </div>
@@ -360,24 +352,24 @@ const Posts = () => {
                                         <div className="flex flex-wrap gap-2">
                                             <Link 
                                                 to={`/posts/${post._id}`} 
-                                                className="flex-1 text-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                                className="flex-1 text-center px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white text-sm font-medium rounded-md transition-colors"
                                             >
-                                                View Recipe
+                                                View
                                             </Link>
                                             
                                             {currentUserId && post.user && currentUserId === post.user._id && (
                                                 <>
                                                     <Link 
                                                         to={`/edit-post/${post._id}`} 
-                                                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                                        className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-md transition-colors"
                                                     >
-                                                        ✏️ Edit
+                                                        Edit
                                                     </Link>
                                                     <button
                                                         onClick={() => handleDelete(post._id)}
-                                                        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                                        className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors"
                                                     >
-                                                        🗑️ Delete
+                                                        Delete
                                                     </button>
                                                 </>
                                             )}

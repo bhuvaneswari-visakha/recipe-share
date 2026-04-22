@@ -13,7 +13,7 @@ const ContactUs = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Message Sent Successfully! 📧");
+    alert("Message Sent Successfully!");
   };
 
   return (
@@ -22,7 +22,7 @@ const ContactUs = () => {
         <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10">
           <div className="text-center mb-6 sm:mb-8">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
-              Connect With Us! 💬
+              Connect With Us
             </h1>
             <p className="text-gray-600 text-base sm:text-lg">
               We'd love to hear from you
@@ -77,7 +77,7 @@ const ContactUs = () => {
                 type="submit"
                 className="w-full py-3 sm:py-4 px-6 border-none rounded-lg shadow-lg text-lg sm:text-xl font-bold text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-4 focus:ring-purple-300 transform hover:scale-105 transition-all"
               >
-                Send Message 📨
+                Send Message
               </button>
             </div>
           </form>

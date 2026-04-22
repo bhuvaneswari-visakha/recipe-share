@@ -30,22 +30,22 @@ const Head2 = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
             <Link to='/Dashboard' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
-              🏠 Home
+              Home
             </Link>
             
             {isLoggedIn && ( 
               <Link to='/create' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
-                ➕ Create Post
+                Create Post
               </Link>
             )}
             
             <Link to='/Posts' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
-              📖 Posts
+              Posts
             </Link>
             
             {isLoggedIn && ( 
               <Link to='/Profile' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
-                👤 Profile
+                Profile
               </Link>
             )}
             
@@ -54,12 +54,12 @@ const Head2 = () => {
                 className="px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition-all shadow-md hover:shadow-lg"
                 onClick={handleLogout}
               >
-                🚪 Log Out
+                Log Out
               </button>
             ) : (
               <Link to='/'>
                 <button className="px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md hover:shadow-lg">
-                  ← Back
+                  Back
                 </button>
               </Link>
             )}
@@ -89,7 +89,7 @@ const Head2 = () => {
                 className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                🏠 Home
+                Home
               </Link>
               
               {isLoggedIn && ( 
@@ -98,7 +98,7 @@ const Head2 = () => {
                   className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  ➕ Create Post
+                  Create Post
                 </Link>
               )}
               
@@ -107,7 +107,7 @@ const Head2 = () => {
                 className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                📖 Posts
+                Posts
               </Link>
               
               {isLoggedIn && ( 
@@ -116,7 +116,7 @@ const Head2 = () => {
                   className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  👤 Profile
+                  Profile
                 </Link>
               )}
               
@@ -129,12 +129,12 @@ const Head2 = () => {
                       setMobileMenuOpen(false);
                     }}
                   >
-                    🚪 Log Out
+                    Log Out
                   </button>
                 ) : (
                   <Link to='/' onClick={() => setMobileMenuOpen(false)}>
                     <button className="w-full px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md">
-                      ← Back
+                      Back
                     </button>
                   </Link>
                 )}

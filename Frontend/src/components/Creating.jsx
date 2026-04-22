@@ -91,7 +91,7 @@ const Creating = () => {
                     },
                 }
             );
-            alert("Recipe shared successfully! 🎉")
+            alert("Recipe shared successfully!")
             setMessage("Recipe shared successfully!");
             console.log("Response:", res.data); 
             setFormData({ title: "", description: "", ingredients: "", recipeImage: null });
@@ -120,7 +120,7 @@ const Creating = () => {
                     </div>
                     
                     <h1 className="text-3xl sm:text-4xl lg:text-5xl text-purple-600 text-center font-bold mb-6 sm:mb-8">
-                        Share Your Recipe 🍳
+                        Share Your Recipe
                     </h1>
                     
                     <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
@@ -177,7 +177,7 @@ const Creating = () => {
 
                         <div>
                             <label htmlFor="recipeImageInput" className="block text-gray-800 text-sm sm:text-base font-semibold mb-2">
-                                Upload Photo 📸
+                                Upload Photo
                             </label>
                             <input
                                 type="file"
@@ -197,7 +197,7 @@ const Creating = () => {
                         </div>
 
                         <div className="pt-4">
-                            <Button name="Post Recipe 🚀" type="submit" />
+                            <Button name="Post Recipe" type="submit" />
                         </div>
                     </form>
                 </div>

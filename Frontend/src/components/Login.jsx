@@ -77,7 +77,7 @@ const Login = () => {
         </p>
         
         <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800">
-          Welcome Back! 👋
+          Welcome Back
         </h2>
         
         <form onSubmit={handleSubmit} className="space-y-5">
