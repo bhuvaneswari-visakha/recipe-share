@@ -2,9 +2,14 @@ import React from 'react'
 
 const Button = (props) => {
   return (
-    <div>
-      <button className="rounded-2xl h-10 mx-10 text-white p-2 mt-1" style={{backgroundColor:'#783fa4'}}>{props.name}</button>
-    </div>
+    <button 
+      type={props.type || 'button'}
+      onClick={props.onClick}
+      disabled={props.disabled}
+      className="w-full sm:w-auto px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed text-base sm:text-lg"
+    >
+      {props.name}
+    </button>
   )
 }
 

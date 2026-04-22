@@ -4,6 +4,7 @@ import Logo from './Logo';
 import Button from './Button';
 import axios from 'axios';
 import Head2 from './Head2';
+import { API_URL } from '../config';
 
 const Creating = () => {
     const navigate = useNavigate();
@@ -19,15 +20,15 @@ const Creating = () => {
     const createStyle = {
         backgroundImage: `url(https://i.pinimg.com/1200x/52/58/30/525830bcdff4027e742fe03cb2702410.jpg)`,
         backgroundSize: 'cover',
+        backgroundPosition: 'center',
         minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '20px',
+        padding: '1rem',
         backgroundAttachment: 'fixed',
         backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center center',
     };
 
     const handleChange = (e) => {
@@ -90,7 +91,7 @@ const Creating = () => {
                     },
                 }
             );
-            alert("recipe shared Successfully")
+            alert("Recipe shared successfully! 🎉")
             setMessage("Recipe shared successfully!");
             console.log("Response:", res.data); 
             setFormData({ title: "", description: "", ingredients: "", recipeImage: null });
@@ -112,81 +113,93 @@ const Creating = () => {
     return (
         <>
             <Head2/>
-            <div style={{ ...createStyle, paddingTop: '72px' }}> 
-                <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', borderRadius: '15px', width: '90%', maxWidth: '700px' }}>
-                    <Logo />
-                    <div className='items-center mx-auto' style={{ maxWidth: '600px' }}>
-                        <h1 className='text-5xl px-20 text-purple-600 text-center'>Share Your Recipe</h1>
-                        <form onSubmit={handleSubmit} className='text-purple-600 border p-7 m-3 rounded-2xl w-full'>
-                            {message && <p className="text-purple-600 text-center mb-4">{message}</p>}
-                            {error && <p className="text-red-600 text-center mb-4">{error}</p>}
+            <div style={{ ...createStyle, paddingTop: '80px' }}> 
+                <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-10 w-full max-w-3xl mx-4">
+                    <div className="mb-6">
+                        <Logo />
+                    </div>
+                    
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl text-purple-600 text-center font-bold mb-6 sm:mb-8">
+                        Share Your Recipe 🍳
+                    </h1>
+                    
+                    <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
+                        {message && <p className="text-green-600 text-center font-semibold bg-green-50 p-3 rounded-lg">{message}</p>}
+                        {error && <p className="text-red-600 text-center font-semibold bg-red-50 p-3 rounded-lg">{error}</p>}
 
-                            <label htmlFor="title" className="block text-lg font-medium mb-2">Title</label>
+                        <div>
+                            <label htmlFor="title" className="block text-gray-800 text-sm sm:text-base font-semibold mb-2">
+                                Recipe Title
+                            </label>
                             <input
-                                className='mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 text-lg transition duration-150 ease-in-out'
+                                className="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg transition-all outline-none"
                                 id="title"
                                 type="text"
                                 name="title"
-                                placeholder='Give your recipe a title'
+                                placeholder="Give your recipe a catchy title"
                                 value={title}
                                 onChange={handleChange}
                                 required
-                            /><br />
+                            />
+                        </div>
 
-                            <label htmlFor="description" className="block text-lg font-medium mb-2">
-                                Description
+                        <div>
+                            <label htmlFor="description" className="block text-gray-800 text-sm sm:text-base font-semibold mb-2">
+                                Description & Instructions
                             </label>
                             <textarea
                                 name="description"
                                 id="description"
-                                rows="3"
-                                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 text-lg transition duration-150 ease-in-out"
+                                rows="5"
+                                className="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg transition-all outline-none resize-none"
                                 placeholder="Tell us about your recipe and preparation steps..."
                                 value={description}
                                 onChange={handleChange}
                                 required
                             ></textarea>
-                            <br />
+                        </div>
 
-                            <label htmlFor="ingredients" className="block text-lg font-medium mb-2">
+                        <div>
+                            <label htmlFor="ingredients" className="block text-gray-800 text-sm sm:text-base font-semibold mb-2">
                                 Ingredients (One per line)
                             </label>
                             <textarea
                                 name="ingredients"
                                 id="ingredients"
-                                rows="5"
-                                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-purple-500 focus:border-purple-500 text-lg transition duration-150 ease-in-out"
-                                placeholder="List ingredients, one per line"
+                                rows="6"
+                                className="block w-full px-4 py-3 border-2 border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-base sm:text-lg transition-all outline-none resize-none"
+                                placeholder="List ingredients, one per line&#10;Example:&#10;2 cups flour&#10;1 tsp salt&#10;3 eggs"
                                 value={ingredients}
                                 onChange={handleChange}
                                 required
                             ></textarea>
-                            <br />
+                        </div>
 
-                            <label htmlFor="recipeImageInput" className="block text-lg font-medium mb-2">
-                                Upload Photo
+                        <div>
+                            <label htmlFor="recipeImageInput" className="block text-gray-800 text-sm sm:text-base font-semibold mb-2">
+                                Upload Photo 📸
                             </label>
                             <input
                                 type="file"
                                 id="recipeImageInput"
                                 name="recipeImage"
-                                className="mt-1 block w-full text-sm text-gray-500
+                                className="block w-full text-sm sm:text-base text-gray-600
                                             file:mr-4 file:py-2 file:px-4
-                                            file:rounded-full file:border-0
+                                            file:rounded-lg file:border-0
                                             file:text-sm file:font-semibold
-                                            file:bg-violet-50 file:text-violet-700
-                                            hover:file:bg-violet-100"
+                                            file:bg-purple-50 file:text-purple-700
+                                            hover:file:bg-purple-100 file:cursor-pointer
+                                            cursor-pointer border-2 border-gray-300 rounded-lg p-2"
                                 accept="image/*"
                                 onChange={handleImageChange}
                                 required
                             />
-                            <br />
+                        </div>
 
-                            <div className='mt-4 text-center'>
-                                <Button name='Post Recipe' type='submit' />
-                            </div>
-                        </form>
-                    </div>
+                        <div className="pt-4">
+                            <Button name="Post Recipe 🚀" type="submit" />
+                        </div>
+                    </form>
                 </div>
             </div>
         </>

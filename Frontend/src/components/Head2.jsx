@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Head2 = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,6 +14,7 @@ const Head2 = () => {
       setIsLoggedIn(false);
     }
   }, []); 
+
   const handleLogout = () => {
     localStorage.clear(); 
     setIsLoggedIn(false);
@@ -20,39 +22,128 @@ const Head2 = () => {
   };
 
   return (
-    
-      <header className="w-full sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-2 ">
-          <div className="flex items-center justify-between h-18">
-            <Logo/>
-            <nav className=" md:px-8 sm:px-1  items-center text-bold space-x-10 " style={{fontSize:'15px'}}>
-              <Link to='/Dashboard'><a href="#home" className="text-black hover:text-green-900 transition-colors">Home</a></Link>
-              {isLoggedIn && ( 
-                <Link to='/create' className="text-black hover:text-green-900 transition-colors">
-                  create Post </Link>
+    <header className="w-full sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          <Logo/>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
+            <Link to='/Dashboard' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+              🏠 Home
+            </Link>
+            
+            {isLoggedIn && ( 
+              <Link to='/create' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+                ➕ Create Post
+              </Link>
+            )}
+            
+            <Link to='/Posts' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+              📖 Posts
+            </Link>
+            
+            {isLoggedIn && ( 
+              <Link to='/Profile' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+                👤 Profile
+              </Link>
+            )}
+            
+            {isLoggedIn ? (
+              <button
+                className="px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition-all shadow-md hover:shadow-lg"
+                onClick={handleLogout}
+              >
+                🚪 Log Out
+              </button>
+            ) : (
+              <Link to='/'>
+                <button className="px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md hover:shadow-lg">
+                  ← Back
+                </button>
+              </Link>
+            )}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button 
+            className="lg:hidden p-2 rounded-md hover:bg-gray-100"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {mobileMenuOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               )}
-              <a href="#Posts" className="text-black hover:text-green-900 transition-colors">Posts</a>
+            </svg>
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <nav className="lg:hidden py-4 border-t border-gray-200 animate-fadeIn">
+            <div className="flex flex-col space-y-3">
+              <Link 
+                to='/Dashboard' 
+                className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                🏠 Home
+              </Link>
               
               {isLoggedIn && ( 
-              <Link to='/Profile'><a href="#profile" className="text-black hover:text-green-900 transition-colors">Profile</a></Link>
-              )}
-              {isLoggedIn && (
-                <button
-                  className=" rounded-2xl p-2 text-white hover:bg-red-600 transition-colors" style={{backgroundColor:'#783fa4',fontSize:'15px'}}
-                  onClick={handleLogout}
+                <Link 
+                  to='/create' 
+                  className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  Log Out
-                </button>
-              ) }
-              {!isLoggedIn && ( 
-              <Link to='/'><button href="#back"  className=" rounded-2xl p-2 text-white hover:bg-red-600 transition-colors" style={{backgroundColor:'#783fa4',fontSize:'15px'}}
-                >Back</button></Link>
+                  ➕ Create Post
+                </Link>
               )}
-            </nav>
-          </div>
-        </div>
-      </header>
-   
+              
+              <Link 
+                to='/Posts' 
+                className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                📖 Posts
+              </Link>
+              
+              {isLoggedIn && ( 
+                <Link 
+                  to='/Profile' 
+                  className="text-gray-800 hover:text-purple-600 transition-colors py-2 font-medium"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  👤 Profile
+                </Link>
+              )}
+              
+              <div className="pt-2">
+                {isLoggedIn ? (
+                  <button
+                    className="w-full px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition-all shadow-md"
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    🚪 Log Out
+                  </button>
+                ) : (
+                  <Link to='/' onClick={() => setMobileMenuOpen(false)}>
+                    <button className="w-full px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md">
+                      ← Back
+                    </button>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </nav>
+        )}
+      </div>
+    </header>
   );
 }
 

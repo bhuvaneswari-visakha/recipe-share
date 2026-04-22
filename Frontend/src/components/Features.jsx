@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
+
 const Features = () => {
   const FeaturesSectionStyle = {
     backgroundImage: `url(https://i.pinimg.com/736x/da/b3/fc/dab3fc91ee6e0e9f23a977c238842073.jpg)`,
@@ -9,61 +10,69 @@ const Features = () => {
   };
 
   return (
-    <>
-      <div id="Features" style={FeaturesSectionStyle} className="text-white">
-        <div className="p-3 rounded-lg bg-opacity-90 mb-3 mx-auto max-w-5xl text-gray-800 pt-20 relative z-10">
-          <h2 className="text-4xl text-[#783fa4] text-center italic mb-8">
-            "Use our features to improve your cooking skills."
+    <div id="Features" style={FeaturesSectionStyle} className="py-12 sm:py-16 lg:py-20">
+      <div className="px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl">
+        <div className="bg-white bg-opacity-95 backdrop-blur-sm rounded-2xl shadow-2xl p-6 sm:p-8 lg:p-12">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl text-purple-600 text-center font-bold mb-4 sm:mb-6">
+            ✨ Amazing Features
           </h2>
+          <p className="text-center text-gray-600 text-lg sm:text-xl mb-8 sm:mb-12 italic">
+            "Use our features to improve your cooking skills."
+          </p>
 
-          <div className="grid md:grid-cols-2 gap-8 mt-10">
-
-            <div className="bg-gradient-to-br from-violet-100 to-white p-4 rounded-lg shadow-md border border-primary-orange transform transition duration-300 hover:scale-105 hover:shadow-xl">
-             <h3 className="text-lg font-semibold text-primary-orange mb-3 flex items-center">
-                <span className="material-icons mr-2 text-xl">travel_explore</span>Endless Discovery
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+            <div className="bg-gradient-to-br from-violet-100 to-white p-6 sm:p-8 rounded-xl shadow-lg border-2 border-purple-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-purple-700 mb-4 flex items-center gap-2">
+                <span className="text-3xl">🔍</span>
+                Endless Discovery
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Browse a growing collection of diverse recipes from fellow food lovers. Find inspiration, explore new cuisines, and expand your culinary horizons with endless possibilities.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-pink-100 to-white p-4 rounded-lg shadow-md border border-primary-orange transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <h3 className="text-lg font-semibold text-primary-orange mb-3 flex items-center">
-                <span className="material-icons mr-2 text-xl">auto_stories</span>Seamless Organization
+
+            <div className="bg-gradient-to-br from-pink-100 to-white p-6 sm:p-8 rounded-xl shadow-lg border-2 border-pink-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-pink-700 mb-4 flex items-center gap-2">
+                <span className="text-3xl">📚</span>
+                Seamless Organization
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Keep all your recipes in one place, categorized, tagged, and easily searchable for quick access. Never lose a favorite recipe again and spend more time cooking.
               </p>
             </div>
-            <div className="bg-gradient-to-br from-blue-100 to-white p-4 rounded-lg shadow-md border border-primary-orange transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <h3 className="text-lg font-semibold text-primary-orange mb-3 flex items-center">
-                <span className="material-icons mr-2 text-xl">group</span>Community Connection
+
+            <div className="bg-gradient-to-br from-blue-100 to-white p-6 sm:p-8 rounded-xl shadow-lg border-2 border-blue-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-blue-700 mb-4 flex items-center gap-2">
+                <span className="text-3xl">👥</span>
+                Community Connection
               </h3>
-              <p className="text-lg text-gray-700">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Get ready to connect with other home cooks, share tips, and build your culinary network. A vibrant community awaits to enhance your cooking journey!
               </p>
             </div>
-            <div className="bg-gradient-to-br from-orange-100 to-white p-4 rounded-lg shadow-md border border-primary-orange transform transition duration-300 hover:scale-105 hover:shadow-xl">
-              <h3 className="text-lg font-semibold text-primary-orange mb-3 flex items-center">
-                <span className="material-icons mr-2 text-xl">bookmark_add</span>Personalized Collections
+
+            <div className="bg-gradient-to-br from-orange-100 to-white p-6 sm:p-8 rounded-xl shadow-lg border-2 border-orange-200 transform transition-all duration-300 hover:scale-105 hover:shadow-2xl">
+              <h3 className="text-xl sm:text-2xl font-bold text-orange-700 mb-4 flex items-center gap-2">
+                <span className="text-3xl">⭐</span>
+                Personalized Collections
               </h3> 
-              <p className="text-lg text-gray-700">
+              <p className="text-base sm:text-lg text-gray-700 leading-relaxed">
                 Save recipes you love, create custom collections, and access your culinary inspirations anytime, anywhere. Tailor your cooking experience to your unique tastes.
               </p>
             </div>
           </div>
 
-          <section className="text-center mt-12 pt-8 border-t border-dashed border-gray-300">
+          <section className="text-center mt-10 sm:mt-16 pt-8 border-t border-gray-300">
             <Link
               to="/register"
-              className="inline-block bg-primary-orange text-white px-10 py-4 rounded-full text-xl font-bold no-underline
-                        bg-[#783fa4] hover:-translate-y-1 hover:shadow-lg"
+              className="inline-block bg-purple-600 hover:bg-purple-700 text-white px-8 sm:px-12 py-3 sm:py-4 rounded-full text-lg sm:text-xl font-bold transition-all transform hover:-translate-y-1 hover:shadow-2xl"
             >
-              Get Started Now!
+              Get Started Now! 🚀
             </Link>
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
