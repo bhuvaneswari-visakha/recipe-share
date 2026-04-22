@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import Logo from '../components/Logo'; 
 import { Link, useNavigate } from 'react-router-dom';
-import Head from './head';
 import { API_URL } from '../config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => { 
-   e.preventDefault()
+    e.preventDefault();
+    setIsLoading(true);
+    
     try {
       if (!username || !email || !password) {
         alert("All fields are required for registration.");
@@ -43,71 +45,95 @@ const Register = () => {
     } catch (error) {
       console.error("Network error during registration:", error);
       alert("Could not connect to the server. Please check your network or try again later.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const pageStyle = { 
     backgroundImage: `url(https://i.pinimg.com/1200x/4b/ae/ed/4baeedc4ea603d718216493cd6c660f5.jpg)`,
     backgroundSize: 'cover',
-    height: '100vh',
+    backgroundPosition: 'center',
+    minHeight: '100vh',
     width: '100%',
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1rem'
   };
 
   return (
     <div style={pageStyle}>
-      <div className="p-6 mx-100 top-[50%] rounded w-7/10 md:w-4/10"> 
-      <div style={{ marginTop:'20px',backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', borderRadius: '15px', width: '100%', maxWidth: '600px' }} >
-        <Logo />
-        <h2 className="text-xl font-bold mb-4 text-center mt-5">Create Your Account</h2>
-        <form onSubmit={handleSubmit} className="register-form flex flex-col mt-10 gap-3" > 
-          <div className="flex flex-col">
-            <label htmlFor="username" className="text-sm font-medium">Username</label>
+      <div className="bg-white bg-opacity-95 backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-md mx-4">
+        <Link to='/' className="block mb-4">
+          <Logo />
+        </Link>
+        
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-center text-gray-800">
+          Create Your Account 🎉
+        </h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-5"> 
+          <div className="space-y-2">
+            <label htmlFor="username" className="text-sm font-semibold text-gray-700 block">
+              Username
+            </label>
             <input
               type="text"
               id="username"
               value={username}
-              placeholder="Enter Username"
+              placeholder="Choose a username"
               onChange={(e) => setUsername(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2"
-               
+              required
+              className="w-full border-2 border-gray-300 focus:border-purple-500 rounded-lg px-4 py-3 transition-colors outline-none"
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="email" className="text-sm font-medium">Email</label>
+          
+          <div className="space-y-2">
+            <label htmlFor="email" className="text-sm font-semibold text-gray-700 block">
+              Email
+            </label>
             <input
               type="email" 
               id="email"
               value={email}
-              placeholder="Enter Email"
+              placeholder="Enter your email"
               onChange={(e) => setEmail(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2"
-              
+              required
+              className="w-full border-2 border-gray-300 focus:border-purple-500 rounded-lg px-4 py-3 transition-colors outline-none"
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-medium">Password</label>
+          
+          <div className="space-y-2">
+            <label htmlFor="password" className="text-sm font-semibold text-gray-700 block">
+              Password
+            </label>
             <input
               type="password"
               id="password"
               value={password}
-              placeholder="Enter Password"
+              placeholder="Create a strong password"
               onChange={(e) => setPassword(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2"
-             
+              required
+              className="w-full border-2 border-gray-300 focus:border-purple-500 rounded-lg px-4 py-3 transition-colors outline-none"
             />
           </div>
+          
           <button
-            type="submit" 
-            className='bg-[#783fa4] p-2 px-4 rounded-xl text-white'
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 px-4 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Register
+            {isLoading ? 'Creating Account...' : 'Register'}
           </button>
         </form>
-        <p className="text-sm mt-4 text-center">
-          Already have an account? <Link to="/login" className="text-blue-600 hover:underline">Login here</Link>
+        
+        <p className="text-sm mt-6 text-center text-gray-600">
+          Already have an account?{' '}
+          <Link to="/login" className="text-purple-600 hover:text-purple-700 font-semibold hover:underline">
+            Login here
+          </Link>
         </p>
-      </div>
       </div>
     </div>
   );

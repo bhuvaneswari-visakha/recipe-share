@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Logo from "./Logo";
 import { Link, useNavigate } from 'react-router-dom';
 import { API_URL } from '../config';
+
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
     password: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -20,6 +22,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     try {
       const res = await fetch(`${API_URL}/api/user/login`, {
@@ -46,29 +49,40 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed:", error);
       alert(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-const LoginStyle = {
+
+  const LoginStyle = {
     backgroundImage: `url(https://i.pinimg.com/736x/40/30/31/4030316e4ddbf553bedbb79872f035fe.jpg)`,
     backgroundSize: 'cover',
     backgroundPosition: 'center', 
     minHeight: '100vh', 
-    display: 'flex', 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '1rem'
   };
 
   return (
-    <>
     <div style={LoginStyle}>
-      
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', borderRadius: '15px', width: '90%', maxWidth: '500px' }} className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 p-6 rounded">
-      
-      <Link to='/'><Logo /></Link>
-      <p className="text-[#783fa4] text-sm" style={{fontSize:'8px'}}>Please login to get access to your account</p>
-      <h2 className="text-xl font-bold mb-4">Login</h2>
-      <form onSubmit={handleSubmit} >
-        <div className="register-form flex flex-col gap-3">
-          <div className="flex flex-col">
-            <label htmlFor="username" className="text-sm font-medium">
+      <div className="bg-white bg-opacity-95 backdrop-blur-sm p-6 sm:p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-md mx-4">
+        <Link to='/' className="block mb-4">
+          <Logo />
+        </Link>
+        
+        <p className="text-purple-600 text-sm mb-2">
+          Please login to get access to your account
+        </p>
+        
+        <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-800">
+          Welcome Back! 👋
+        </h2>
+        
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-2">
+            <label htmlFor="username" className="text-sm font-semibold text-gray-700 block">
               Username
             </label>
             <input
@@ -76,13 +90,14 @@ const LoginStyle = {
               id="username"
               value={formData.username}
               onChange={handleChange}
-              placeholder="Enter Username"
+              placeholder="Enter your username"
               required
-              className="border border-gray-300 rounded px-3 py-2"
+              className="w-full border-2 border-gray-300 focus:border-purple-500 rounded-lg px-4 py-3 transition-colors outline-none"
             />
           </div>
-          <div className="flex flex-col">
-            <label htmlFor="password" className="text-sm font-medium">
+          
+          <div className="space-y-2">
+            <label htmlFor="password" className="text-sm font-semibold text-gray-700 block">
               Password
             </label>
             <input
@@ -90,25 +105,30 @@ const LoginStyle = {
               id="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Enter Password"
+              placeholder="Enter your password"
               required
-              className="border border-gray-300 rounded px-3 py-2"
+              className="w-full border-2 border-gray-300 focus:border-purple-500 rounded-lg px-4 py-3 transition-colors outline-none"
             />
           </div>
+          
           <button
             type="submit" 
-            className='p-2 px-4 rounded-xl text-white'
-            style={{backgroundColor:'#783fa4'}}
+            disabled={isLoading}
+            className="w-full py-3 px-4 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-colors shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Login
+            {isLoading ? 'Logging in...' : 'Login'}
           </button>
-          <p>Don't have any account? <Link to="/register" className="text-blue-600 hover:underline">register here</Link></p>
           
-        </div>
-      </form>
+          <p className="text-center text-gray-600 text-sm">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-purple-600 hover:text-purple-700 font-semibold hover:underline">
+              Register here
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
-    </div>
-</>
-);
+  );
 };
+
 export default Login;

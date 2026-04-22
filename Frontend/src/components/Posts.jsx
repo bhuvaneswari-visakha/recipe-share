@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 const Posts = () => {
     const [posts, setPosts] = useState([]);
     const [allPosts, setAllPosts] = useState([]);
@@ -210,80 +211,77 @@ const Posts = () => {
     };
 
     if (loading) {
-        return <div style={{ textAlign: 'center', padding: '20px' }}>Loading posts...</div>;
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-pink-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-purple-600 mx-auto mb-4"></div>
+                    <p className="text-xl text-gray-700 font-medium">Loading delicious recipes...</p>
+                </div>
+            </div>
+        );
     }
 
     if (error) {
-        return <div style={{ color: 'red', textAlign: 'center', padding: '20px' }}>{error}</div>;
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 px-4">
+                <div className="bg-red-50 border border-red-200 rounded-lg p-6 max-w-md">
+                    <p className="text-red-600 text-center">{error}</p>
+                </div>
+            </div>
+        );
     }
 
     return (
-        <div style={{ backgroundSize: 'cover', minHeight: '100vh', backgroundImage: `url(https://i.pinimg.com/1200x/17/0f/fd/170ffdab81a63e7b28f0569ed12cb1f3.jpg)` }}>
-           <div style={{ maxWidth: '1200px', margin: '20px auto', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', backgroundColor: 'rgba(255, 255, 255, 0.9)' }}>
-                <h2 style={{ textAlign: 'center', color: '#333', marginBottom: '20px', fontSize: '2rem', fontWeight: 'bold' }} >All Recipes</h2>
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 py-8 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto">
+                {/* Header */}
+                <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 mb-8">
+                    <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-gray-800 mb-6 sm:mb-8">
+                        🍳 All Recipes
+                    </h2>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '20px', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
-                    <input
-                        type="text"
-                        placeholder="Search by title, description, or username"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        onKeyPress={(e) => {
-                            if (e.key === 'Enter') {
-                                handleSearch();
-                            }
-                        }}
-                        style={{
-                            padding: '10px',
-                            borderRadius: '5px',
-                            border: '1px solid #ccc',
-                            flexGrow: 1,
-                            maxWidth: '300px'
-                        }}
-                    />
-                    <button
-                        onClick={handleSearch}
-                        style={{
-                            padding: '10px 15px',
-                            backgroundColor: '#783fa4',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: 'pointer',
-                            fontSize: '1rem'
-                        }}
-                    >
-                        Search Recipes
-                    </button>
-                    {searchTerm && (
-                        <button
-                            onClick={handleClearSearch}
-                            style={{
-                                padding: '10px 15px',
-                                backgroundColor: '#6c757d',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '5px',
-                                cursor: 'pointer',
-                                fontSize: '1rem'
+                    {/* Search Bar */}
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center justify-center">
+                        <input
+                            type="text"
+                            placeholder="Search by title, description, or username"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                    handleSearch();
+                                }
                             }}
+                            className="flex-1 max-w-md px-4 py-3 rounded-lg border-2 border-gray-300 focus:border-purple-500 focus:outline-none transition-colors text-base"
+                        />
+                        <button
+                            onClick={handleSearch}
+                            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
                         >
-                            Clear Search
+                            🔍 Search
                         </button>
-                    )}
+                        {searchTerm && (
+                            <button
+                                onClick={handleClearSearch}
+                                className="px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                            >
+                                ✕ Clear
+                            </button>
+                        )}
+                    </div>
                 </div>
 
+                {/* Posts Grid */}
                 {posts.length === 0 ? (
-                    <p style={{ textAlign: 'center', color: '#666' }}>
-                        No recipes available yet. {searchTerm && `No recipes found matching "${searchTerm}"`}. Be the first to add one!
-                    </p>
+                    <div className="bg-white rounded-2xl shadow-lg p-8 text-center">
+                        <p className="text-xl text-gray-600">
+                            {searchTerm 
+                                ? `No recipes found matching "${searchTerm}" 😔` 
+                                : "No recipes available yet. Be the first to add one! 🎉"}
+                        </p>
+                    </div>
                 ) : (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '20px',
-                        justifyContent: 'center'
-                    }}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                         {posts.map((post) => {
                             const hasSaved = post.savedBy && Array.isArray(post.savedBy) && post.savedBy.includes(currentUserId);
                             const hasLiked = post.likes && Array.isArray(post.likes) && post.likes.includes(currentUserId);
@@ -291,93 +289,95 @@ const Posts = () => {
                             return (
                                 <div
                                     key={post._id}
-                                    style={{
-                                        border: '1px solid #e0e0e0',
-                                        padding: '1.5rem',
-                                        borderRadius: '10px',
-                                        backgroundColor: '#fff',
-                                        boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        textAlign: 'center'
-                                    }}
+                                    className="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col transform hover:-translate-y-1"
                                 >
+                                    {/* Image */}
                                     {post.imageUrl && (
-                                        <img
-                                            src={`${API_URL}/uploads/${post.imageUrl}`}
-                                            alt={post.title}
-                                            style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '15px' }}
-                                        />
-                                    )}
-                                    <div style={{ flexGrow: 1, width: '100%' }}>
-                                        <Link to={`/posts/${post._id}`} style={{ textDecoration: 'none', color: '#783fa4' }}>
-                                            <h3 style={{ margin: '10px 0', fontSize: '1.5rem' }}>{post.title}</h3>
+                                        <Link to={`/posts/${post._id}`} className="block overflow-hidden">
+                                            <img
+                                                src={`${API_URL}/uploads/${post.imageUrl}`}
+                                                alt={post.title}
+                                                className="w-full h-48 sm:h-56 object-cover hover:scale-105 transition-transform duration-300"
+                                            />
                                         </Link>
+                                    )}
+                                    
+                                    {/* Content */}
+                                    <div className="p-5 sm:p-6 flex-1 flex flex-col">
+                                        <Link to={`/posts/${post._id}`} className="group">
+                                            <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 group-hover:text-purple-600 transition-colors line-clamp-2">
+                                                {post.title}
+                                            </h3>
+                                        </Link>
+                                        
                                         {post.user && post.user.name && (
-                                            <p style={{ margin: '5px 0 15px 0', color: '#555', fontSize: '0.9rem' }}>By: {post.user.name}</p>
+                                            <p className="text-sm text-gray-500 mb-3">
+                                                👨‍🍳 By: <span className="font-medium">{post.user.name}</span>
+                                            </p>
                                         )}
-                                        <p style={{ margin: '10px 0', color: '#444', lineHeight: '1.5', textAlign: 'left' }}>
-                                            {post.description.length > 150 ? post.description.substring(0, 150) + '...' : post.description}
+                                        
+                                        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
+                                            {post.description.length > 120 ? post.description.substring(0, 120) + '...' : post.description}
                                         </p>
+                                        
                                         {post.ingredients && post.ingredients.length > 0 && (
-                                            <div style={{ fontSize: '0.9rem', color: '#666', textAlign: 'left', marginTop: '10px' }}>
-                                                <strong>Ingredients:</strong> {post.ingredients.slice(0, 3).join(', ')}{post.ingredients.length > 3 ? '...' : ''}
+                                            <div className="text-sm text-gray-500 mb-4 bg-gray-50 p-3 rounded-lg">
+                                                <strong className="text-gray-700">🥘 Ingredients:</strong>
+                                                <p className="mt-1">{post.ingredients.slice(0, 3).join(', ')}{post.ingredients.length > 3 ? '...' : ''}</p>
                                             </div>
                                         )}
-                                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '15px', gap: '10px' }}>
-
+                                        
+                                        {/* Like & Save Buttons */}
+                                        <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200">
                                             <button
                                                 onClick={() => handleLikeToggle(post._id)}
-                                                style={{
-                                                    padding: '8px 15px',
-                                                    color: hasLiked ? 'red' : '#783fa4',
-                                                    border: 'none',
-                                                    borderRadius: '5px',
-                                                    cursor: 'pointer',
-                                                    fontSize: '0.9rem',
-                                                    display: 'flex',
-                                                    marginLeft: 'auto',
-                                                    gap: '5px',
-                                                    backgroundColor: 'transparent'
-                                                }}
+                                                className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                                                    hasLiked 
+                                                        ? 'bg-red-50 text-red-600 hover:bg-red-100' 
+                                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                                }`}
                                             >
-                                                {hasLiked ? '♡' :'❤️'} {post.likes ? post.likes.length : 0}
+                                                <span className="text-lg">{hasLiked ? '❤️' : '🤍'}</span>
+                                                <span>{post.likes ? post.likes.length : 0}</span>
                                             </button>
 
                                             {currentUserId && (
                                                 <button
                                                     onClick={() => handleSaveToggle(post._id)}
-                                                    style={{
-                                                        padding: '8px 15px',
-                                                        color: hasSaved ? '#28a745' : '#783fa4',
-                                                        border: 'none',
-                                                        borderRadius: '5px',
-                                                        cursor: 'pointer',
-                                                        fontSize: '0.9rem',
-                                                        display: 'flex',
-                                                        gap: '5px',
-                                                        backgroundColor: 'transparent'
-                                                    }}
+                                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                                                        hasSaved 
+                                                            ? 'bg-green-50 text-green-600 hover:bg-green-100' 
+                                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                                    }`}
                                                 >
-                                                    {hasSaved ? '✅ Saved' : '⭐ Save'}
+                                                    <span className="text-lg">{hasSaved ? '⭐' : '☆'}</span>
+                                                    <span className="hidden sm:inline">{hasSaved ? 'Saved' : 'Save'}</span>
                                                 </button>
                                             )}
                                         </div>
-                                        <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                                            <Link to={`/posts/${post._id}`} style={{ display: 'inline-block', padding: '8px 15px', backgroundColor: '#783fa4', color: 'white', textDecoration: 'none', borderRadius: '5px', fontSize: '0.9rem' }}>
-                                                View Full Recipe
+                                        
+                                        {/* Action Buttons */}
+                                        <div className="flex flex-wrap gap-2">
+                                            <Link 
+                                                to={`/posts/${post._id}`} 
+                                                className="flex-1 text-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                            >
+                                                View Recipe
                                             </Link>
+                                            
                                             {currentUserId && post.user && currentUserId === post.user._id && (
                                                 <>
-                                                    <Link to={`/edit-post/${post._id}`} style={{ display: 'inline-block', padding: '8px 15px', backgroundColor: '#362145ff', color: 'white', textDecoration: 'none', borderRadius: '5px', fontSize: '0.9rem' }}>
-                                                        Edit
+                                                    <Link 
+                                                        to={`/edit-post/${post._id}`} 
+                                                        className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
+                                                    >
+                                                        ✏️ Edit
                                                     </Link>
                                                     <button
                                                         onClick={() => handleDelete(post._id)}
-                                                        style={{ padding: '8px 15px', backgroundColor: '#dc3545', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontSize: '0.9rem' }}
+                                                        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors shadow-md hover:shadow-lg"
                                                     >
-                                                        Delete
+                                                        🗑️ Delete
                                                     </button>
                                                 </>
                                             )}
