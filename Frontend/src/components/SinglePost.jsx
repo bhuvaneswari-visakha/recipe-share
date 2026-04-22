@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Head2 from './Head2';
+import { API_URL } from '../config';
 
 const SinglePost = () => {
     const { id } = useParams();
@@ -29,7 +30,7 @@ const SinglePost = () => {
                 
 
                 console.log("SinglePost: Fetching post with ID:", id);
-                const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+                const res = await axios.get(`${API_URL}/api/posts/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -75,7 +76,7 @@ const SinglePost = () => {
 
         try {
             setLoading(true);
-            await axios.delete(`http://localhost:5000/api/posts/${id}`, {
+            await axios.delete(`${API_URL}/api/posts/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -137,7 +138,7 @@ const SinglePost = () => {
                         {post.imageUrl && (
                             <div className="w-full md:w-1/2 min-w-[300px]">
                                 <img
-                                    src={`http://localhost:5000/uploads/${post.imageUrl}`}
+                                    src={`${API_URL}/uploads/${post.imageUrl}`}
                                     alt={post.title}
                                     className="w-full h-70 object-cover rounded-lg shadow-md"
                                 />

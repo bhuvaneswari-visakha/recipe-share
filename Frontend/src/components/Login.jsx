@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Logo from "./Logo";
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -21,7 +22,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/user/login", {
+      const res = await fetch(`${API_URL}/api/user/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

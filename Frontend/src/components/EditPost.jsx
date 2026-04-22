@@ -32,7 +32,7 @@ const EditPost = () => {
                     return;
                 }
 
-                const res = await axios.get(`http://localhost:5000/api/posts/${id}`, {
+                const res = await axios.get(`${API_URL}/api/posts/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -95,7 +95,7 @@ const EditPost = () => {
                 navigate('/login');
                 return;
             }
-            await axios.patch(`http://localhost:5000/api/posts/${id}`, formData, {
+            await axios.patch(`${API_URL}/api/posts/${id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -176,7 +176,7 @@ const EditPost = () => {
                         <label htmlFor="currentImage" style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Current Image:</label>
                         {currentImageUrl && (
                             <img
-                                src={`http://localhost:5000/uploads/${currentImageUrl}`}
+                                src={`${API_URL}/uploads/${currentImageUrl}`}
                                 alt="Current Recipe"
                                 style={{ maxWidth: '400px', height: 'auto', display: 'block', marginBottom: '10px', borderRadius: '5px' }}
                             />

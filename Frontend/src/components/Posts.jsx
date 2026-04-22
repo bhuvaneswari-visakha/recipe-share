@@ -14,7 +14,7 @@ const Posts = () => {
         setLoading(true);
         setError(null);
         try {
-            const url = 'http://localhost:5000/api/posts/all';
+            const url = `${API_URL}/api/posts/all`;
             const token = localStorage.getItem('token');
             const headers = token ? { Authorization: `Bearer ${token}` } : {};
 
@@ -92,7 +92,7 @@ const Posts = () => {
                     return;
                 }
 
-                await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+                await axios.delete(`${API_URL}/api/posts/${postId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -133,14 +133,14 @@ const Posts = () => {
 
             let updatedPostData;
             if (hasLiked) {
-                const res = await axios.delete(`http://localhost:5000/api/posts/${postId}/like`, {
+                const res = await axios.delete(`${API_URL}/api/posts/${postId}/like`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 updatedPostData = res.data.post;
             } else {
-                const res = await axios.post(`http://localhost:5000/api/posts/${postId}/like`, {}, {
+                const res = await axios.post(`${API_URL}/api/posts/${postId}/like`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -180,14 +180,14 @@ const Posts = () => {
 
             let updatedPostData;
             if (hasSaved) {
-                const res = await axios.delete(`http://localhost:5000/api/posts/${postId}/save`, {
+                const res = await axios.delete(`${API_URL}/api/posts/${postId}/save`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 updatedPostData = res.data.post;
             } else {
-                const res = await axios.post(`http://localhost:5000/api/posts/${postId}/save`, {}, {
+                const res = await axios.post(`${API_URL}/api/posts/${postId}/save`, {}, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -305,7 +305,7 @@ const Posts = () => {
                                 >
                                     {post.imageUrl && (
                                         <img
-                                            src={`http://localhost:5000/uploads/${post.imageUrl}`}
+                                            src={`${API_URL}/uploads/${post.imageUrl}`}
                                             alt={post.title}
                                             style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '8px', marginBottom: '15px' }}
                                         />

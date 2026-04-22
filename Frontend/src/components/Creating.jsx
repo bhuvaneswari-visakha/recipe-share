@@ -82,7 +82,7 @@ const Creating = () => {
             }
 
             const res = await axios.post(
-                "http://localhost:5000/api/posts/create",
+                `${API_URL}/api/posts/create`,
                 data,
                 {
                     headers: {

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../components/Logo'; 
 import { Link, useNavigate } from 'react-router-dom';
 import Head from './head';
+import { API_URL } from '../config';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -17,7 +18,7 @@ const Register = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/user/register', {
+      const response = await fetch(`${API_URL}/api/user/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState('myRecipes');
@@ -29,7 +30,7 @@ const Profile = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/posts/myposts', {
+      const res = await axios.get(`${API_URL}/api/posts/myposts`, {
         headers: getAuthHeaders(),
       });
       setMyRecipes(Array.isArray(res.data) ? res.data : (res.data.posts || []));
@@ -57,7 +58,7 @@ const Profile = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/posts/saved', {
+      const res = await axios.get(`${API_URL}/api/posts/saved`, {
         headers: getAuthHeaders(),
       });
       setSavedRecipes(Array.isArray(res.data) ? res.data : (res.data.posts || []));
@@ -85,7 +86,7 @@ const Profile = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/posts/liked', {
+      const res = await axios.get(`${API_URL}/api/posts/liked`, {
         headers: getAuthHeaders(),
       });
       setLikedRecipes(Array.isArray(res.data) ? res.data : (res.data.posts || []));
@@ -124,7 +125,7 @@ const Profile = () => {
           navigate('/login');
           return;
         }
-        await axios.delete(`http://localhost:5000/api/posts/${postId}`, {
+        await axios.delete(`${API_URL}/api/posts/${postId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMyRecipes(prevRecipes => prevRecipes.filter(recipe => recipe._id !== postId));
@@ -177,7 +178,7 @@ const Profile = () => {
             >
               {post.imageUrl && (
                 <img
-                  src={`http://localhost:5000/uploads/${post.imageUrl}`}
+                  src={`${API_URL}/uploads/${post.imageUrl}`}
                   alt={post.title}
                   style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '5px' }}
                 />
