@@ -34,13 +34,13 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <section id="About">
+      <section id="About" className="py-8 sm:py-12 bg-transparent">
         <About/>
       </section>
-      <section id="Features">
+      <section id="Features" className="py-8 sm:py-12 bg-transparent">
         <Features/>
       </section>
-      <section id="Contact">
+      <section id="Contact" className="py-8 sm:py-12 bg-transparent">
         <ContactUs/>
       </section>
 

@@ -28,37 +28,37 @@ const Head2 = () => {
           <Logo/>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-            <Link to='/Dashboard' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6 flex-wrap justify-end">
+            <Link to='/Dashboard' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base whitespace-nowrap">
               Home
             </Link>
             
             {isLoggedIn && ( 
-              <Link to='/create' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+              <Link to='/create' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base whitespace-nowrap">
                 Create Post
               </Link>
             )}
             
-            <Link to='/Posts' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+            <Link to='/Posts' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base whitespace-nowrap">
               Posts
             </Link>
             
             {isLoggedIn && ( 
-              <Link to='/Profile' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base">
+              <Link to='/Profile' className="text-gray-800 hover:text-purple-600 transition-colors font-medium text-base whitespace-nowrap">
                 Profile
               </Link>
             )}
             
             {isLoggedIn ? (
               <button
-                className="px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition-all shadow-md hover:shadow-lg"
+                className="px-5 py-2 rounded-lg text-white font-semibold bg-red-600 hover:bg-red-700 transition-all shadow-md hover:shadow-lg cursor-pointer whitespace-nowrap"
                 onClick={handleLogout}
               >
                 Log Out
               </button>
             ) : (
-              <Link to='/'>
-                <button className="px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md hover:shadow-lg">
+              <Link to='/' className="whitespace-nowrap">
+                <button className="px-5 py-2 rounded-lg text-white font-semibold bg-purple-600 hover:bg-purple-700 transition-all shadow-md hover:shadow-lg cursor-pointer">
                   Back
                 </button>
               </Link>
